@@ -1,0 +1,93 @@
+
+
+
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"   
+
+ // url      = env("DATABASE_URL")
+}
+
+//criar uma migration: yarn prisma migrate dev
+
+enum Role {
+  STAFF
+  ADMIN
+}
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  role Role @default (STAFF)
+  password String
+  created_At DateTime?@default(now())
+  updated_At DateTime?@default(now())
+
+  @@map("users")
+}
+
+model Category {
+  id String @id @default(uuid())
+  name String 
+  created_At DateTime?@default(now())
+  updated_At DateTime?@default(now())
+
+    @@map("categories")
+
+    products Product[]
+    //Uma categoria pode estar em varios produtos
+}
+
+model Product {
+  id String @id @default(uuid())
+  name String 
+  price Int
+  description String 
+  banner String
+  disabled Boolean @default(false)
+  created_At DateTime?@default(now())
+  updated_At DateTime?@default(now())
+
+   category Category @relation(fields:[category_id], references: [id],onDelete: Cascade)
+    @@map("products")
+
+  Items Item[] //Um produto pode estar dentro de varios Items
+  category_id String
+  //Uma categoria pode ter varios produtos
+}
+
+model Order {
+  id String @id @default(uuid())
+  table Int // numero da mesa
+  status Boolean @default(false)  //false:pendente ou true:pronto
+  draft Boolean @default(true)   //draft (false ) -> quer dizer que foi enviado para a producao 
+  name String? //name eh opcional preencher por isso o '?'
+  created_At DateTime?@default(now())
+  updated_At DateTime?@default(now())
+  @@map("Order")
+
+  Items Item[]
+}
+
+model Item {
+    id String @id @default(uuid())
+    amount Int
+    created_At DateTime?@default(now())
+    updated_At DateTime?@default(now())
+
+  product Product @relation (fields:[product_id], references: [id],onDelete: Cascade)
+  order Order @relation (fields:[order_id], references: [id],onDelete: Cascade)
+  
+  @@map("items")
+ 
+  product_id String
+  order_id String
+
+  //Percepcao: um order pode estar em varios items
+}
