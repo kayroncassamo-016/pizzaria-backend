@@ -1,0 +1,52 @@
+clicar no lado direito do mouse na pasta /backend e seleccionar git bash here e depois usar os comandos:
+1. git init; - Inicializar o Git na pasta (uma vez só)
+2. git add . ; - Adicionar todos os arquivos ao Git
+3. git commit -m "Primeiro commit do backend" ; - Criar um commit inicial
+
+4. Criar o repositório no GitHub:
+ i.Vá em GitHub
+
+ ii.Clique em New repository
+
+ iii.Nomeie como pizzaria-backend ou o que quiser
+
+ iv.Escolha público ou privado
+
+ v.NÃO adicione README, .gitignore ou license (já temos localmente)
+
+ vi.Clique em Create repository
+
+5. Conectar o repositório local ao GitHub
+
+No GitHub, ele vai te mostrar algo assim:
+
+git remote add origin https://github.com/kayroncassamo-016/pizzaria-backend
+
+Copie e cole no terminal.
+
+
+
+6. Enviar o código para o GitHub
+
+git branch -M main
+git push -u origin main
+/===================================================================================/
+git branch -M main garante que sua branch principal se chame main.
+
+git push -u origin main envia tudo para o GitHub.
+
+
+
+7.Verificar no GitHub
+
+Abra seu repositório no navegador
+
+Você verá todos os arquivos do backend lá ✅
+
+Depois disso, qualquer mudança futura você faz:
+
+git add .
+git commit -m "Mensagem do commit"
+git push
+
+E o GitHub será atualizado automaticamente.
